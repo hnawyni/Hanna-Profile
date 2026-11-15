@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanna Wahyuni — Portofolio & CV Digital | S1 Akuntansi</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        softblue: {
+                            50: '#F4F9FF',
+                            100: '#E6F1FE',
+                            200: '#CCE3FD',
+                            300: '#99C7FB',
+                            400: '#66AAF9',
+                            500: '#338EF7',
+                            600: '#006FEE',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F8FAFC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #CCE3FD;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #66AAF9;
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.12s; }
+        .reveal-delay-2 { transition-delay: 0.24s; }
+        .reveal-delay-3 { transition-delay: 0.36s; }
+    </style>
+</head>
+<body class="bg-white text-slate-700 font-sans antialiased selection:bg-softblue-200 selection:text-softblue-600 overflow-x-hidden">
+
+    <!-- Subtle Ambient Soft Blue Glow -->
+    <div class="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+        <div class="absolute -top-40 left-1/4 w-[520px] h-[520px] bg-softblue-100/80 rounded-full blur-[120px]"></div>
+        <div class="absolute bottom-0 right-1/4 w-[480px] h-[480px] bg-softblue-50 rounded-full blur-[110px]"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="bg-white border border-softblue-200 text-slate-800 px-5 py-3.5 rounded-2xl shadow-xl shadow-softblue-500/10 flex items-center gap-3 text-sm font-medium">
+            <i data-lucide="check-circle-2" class="w-4 h-4 text-softblue-500"></i>
+            <span id="toast-msg">Tersalin ke clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header id="navbar" class="fixed top-0 inset-x-0 z-40 transition-all duration-300 bg-white/85 backdrop-blur-xl border-b border-softblue-100">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Monogram -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-softblue-50 border border-softblue-200 flex items-center justify-center font-display font-bold text-softblue-600 group-hover:bg-softblue-500 group-hover:text-white transition-all">
+                    HW
+                </div>
+                <span class="font-display font-bold text-lg tracking-tight text-slate-900">
+                    Hanna<span class="text-softblue-500">.</span>
+                </span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-500">
+                <a href="#home" class="nav-link hover:text-softblue-600 transition-colors">Home</a>
+                <a href="#about" class="nav-link hover:text-softblue-600 transition-colors">About Us</a>
+                <a href="#education" class="nav-link hover:text-softblue-600 transition-colors">Education</a>
+                <a href="#project" class="nav-link hover:text-softblue-600 transition-colors">Project</a>
+                <a href="#contact" class="nav-link hover:text-softblue-600 transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA & Mobile Toggle -->
+            <div class="flex items-center gap-3">
+                <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-softblue-500 text-white font-semibold text-xs hover:bg-softblue-600 transition-all shadow-sm shadow-softblue-500/20 active:scale-95">
+                    <span>Hire Me</span>
+                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                </a>
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2.5 rounded-xl bg-softblue-50 border border-softblue-200 text-slate-700 hover:text-softblue-600" aria-label="Toggle Menu">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-xl border-b border-softblue-100 px-6 py-5 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium text-slate-600 hover:text-softblue-600">Home</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium text-slate-600 hover:text-softblue-600">About Us</a>
+            <a href="#education" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium text-slate-600 hover:text-softblue-600">Education</a>
+            <a href="#project" onclick="toggleMobileMenu()" class="block py-2 text-sm font-medium text-slate-600 hover:text-softblue-600">Project</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block py-2 text-sm font-semibold text-softblue-600">Contact</a>
+        </div>
+    </header>
+
+    <!-- 1. HOME SECTION -->
+    <section id="home" class="min-h-screen flex items-center pt-28 pb-20">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8 w-full">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <!-- Left Intro -->
+                <div class="lg:col-span-7 space-y-6 reveal">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-softblue-50 border border-softblue-200 text-xs font-semibold text-softblue-600">
+                        <span class="w-2 h-2 rounded-full bg-softblue-500 animate-pulse"></span>
+                        S1 Akuntansi • Universitas Negeri Surabaya
+                    </div>
+
+                    <h1 class="font-display font-extrabold text-4xl sm:text-5xl lg:text-6xl text-slate-900 leading-[1.15] tracking-tight">
+                        Halo, Saya <br>
+                        <span class="bg-gradient-to-r from-softblue-600 via-softblue-500 to-softblue-400 bg-clip-text text-transparent">
+                            Hanna Wahyuni
+                        </span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-slate-600 max-w-xl leading-relaxed">
+                        Mahasiswa S1 Akuntansi dengan ketertarikan kuat pada penyusunan laporan keuangan dasar, komunikasi publik (<span class="text-slate-900 font-medium">Public Relations & MC</span>), serta desain kreatif visual menggunakan Canva.
+                    </p>
+
+                    <div class="flex flex-wrap items-center gap-4 pt-2">
+                        <a href="#project" class="px-7 py-3.5 rounded-xl bg-softblue-500 text-white font-semibold text-sm hover:bg-softblue-600 transition-all shadow-lg shadow-softblue-500/20 flex items-center gap-2">
+                            <span>Lihat Pengalaman & Karya</span>
+                            <i data-lucide="arrow-down-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#contact" class="px-7 py-3.5 rounded-xl bg-softblue-50 hover:bg-softblue-100 text-softblue-600 border border-softblue-200 font-semibold text-sm transition-all flex items-center gap-2">
+                            <i data-lucide="mail" class="w-4 h-4 text-softblue-500"></i>
+                            <span>Hubungi Saya</span>
+                        </a>
+                    </div>
+
+                    <!-- Quick Info Bar -->
+                    <div class="pt-6 border-t border-softblue-100 flex flex-wrap gap-6 text-xs font-medium text-slate-500">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="map-pin" class="w-4 h-4 text-softblue-500"></i>
+                            <span>Surabaya, Indonesia</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="globe" class="w-4 h-4 text-softblue-500"></i>
+                            <span>Indonesia (Aktif) • Inggris (Menengah)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Minimalist Profile Card -->
+                <div class="lg:col-span-5 reveal reveal-delay-1">
+                    <div class="relative mx-auto max-w-sm">
+                        <div class="absolute -inset-2 bg-gradient-to-tr from-softblue-200/60 to-softblue-50 rounded-3xl blur-xl"></div>
+                        <div class="relative bg-white border border-softblue-200/80 shadow-xl shadow-softblue-500/5 rounded-3xl p-7 space-y-6">
+                            <div class="flex items-center justify-between">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-softblue-100 to-softblue-50 border border-softblue-200 flex items-center justify-center font-display font-extrabold text-2xl text-softblue-600">
+                                    HW
+                                </div>
+                                <span class="px-3 py-1 rounded-full bg-softblue-50 text-softblue-600 text-xs font-semibold border border-softblue-200">
+                                    Open to Opportunities
+                                </span>
+                            </div>
+
+                            <div>
+                                <h2 class="font-display font-bold text-xl text-slate-900">Hanna Wahyuni</h2>
+                                <p class="text-sm font-medium text-softblue-600 mt-0.5">Accounting • Public Relations • MC</p>
+                            </div>
+
+                            <div class="space-y-3 pt-4 border-t border-softblue-100 text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500">Institusi</span>
+                                    <span class="text-slate-800 font-semibold">Universitas Negeri Surabaya</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500">Program Studi</span>
+                                    <span class="text-slate-800 font-semibold">S1 Akuntansi</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-500">Fokus Utama</span>
+                                    <span class="text-slate-800 font-semibold">Finance, PR & Desain Kreatif</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 flex items-center gap-3">
+                                <a href="https://linkedin.com/in/hannawhyuni" target="_blank" rel="noopener noreferrer" class="flex-1 py-2.5 rounded-xl bg-softblue-50 hover:bg-softblue-100 border border-softblue-200 text-center text-xs font-semibold text-softblue-600 transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                    LinkedIn
+                                </a>
+                                <button onclick="copyText('hnawahyuni@gmail.com', 'Email berhasil disalin!')" class="flex-1 py-2.5 rounded-xl bg-white hover:bg-softblue-50 border border-softblue-200 text-center text-xs font-semibold text-slate-700 transition-all flex items-center justify-center gap-2">
+                                    <i data-lucide="copy" class="w-4 h-4 text-softblue-500"></i>
+                                    Salin Email
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. ABOUT US SECTION (Ringkasan Profesional & Keahlian) -->
+    <section id="about" class="py-24 bg-softblue-50/60 border-y border-softblue-100">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="max-w-2xl mb-14 reveal">
+                <span class="text-xs font-bold uppercase tracking-widest text-softblue-600">01 / About Me</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 mt-2">Ringkasan Profesional & Keahlian</h2>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-10 items-start">
+                <!-- Professional Summary -->
+                <div class="lg:col-span-6 bg-white border border-softblue-100 shadow-sm rounded-3xl p-7 sm:p-8 space-y-5 reveal">
+                    <div class="w-11 h-11 rounded-2xl bg-softblue-50 border border-softblue-200 flex items-center justify-center text-softblue-600">
+                        <i data-lucide="user-check" class="w-5 h-5"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-slate-900">Profil Singkat</h3>
+                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                        Mahasiswa aktif <strong class="text-slate-900">S1 Akuntansi di Universitas Negeri Surabaya</strong> yang sedang mengembangkan pengetahuan dan keterampilan di bidang akuntansi. Berpengalaman di bidang hubungan masyarakat dan <strong class="text-slate-900">Master of Ceremony (MC)</strong> pada berbagai kegiatan organisasi dan acara kampus.
+                    </p>
+                    <p class="text-sm sm:text-base text-slate-600 leading-relaxed">
+                        Memiliki kemampuan komunikasi yang efektif, kerja sama tim yang solid, serta dedikasi tinggi untuk mendukung kelancaran kegiatan dan mencapai hasil yang optimal. Selain itu, memiliki ketertarikan di bidang kreatif, khususnya dalam pembuatan dan pengeditan desain menggunakan <strong class="text-softblue-600">Canva</strong>.
+                    </p>
+                    <div class="pt-4 border-t border-softblue-100">
+                        <p class="text-xs text-slate-500">
+                            <span class="text-softblue-600 font-bold">Komitmen:</span> Siap bekerja dalam tim maupun individu, bersedia belajar hal baru, dan berkontribusi secara maksimal.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Hard Skills & Soft Skills -->
+                <div class="lg:col-span-6 space-y-6 reveal reveal-delay-1">
+                    <!-- Hard Skills -->
+                    <div class="bg-white border border-softblue-100 shadow-sm rounded-3xl p-7">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-9 h-9 rounded-xl bg-softblue-50 border border-softblue-200 text-softblue-600 flex items-center justify-center">
+                                <i data-lucide="cpu" class="w-4 h-4"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-lg text-slate-900">Hard Skills</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="px-4 py-2 rounded-xl bg-softblue-50 border border-softblue-200 text-xs font-semibold text-softblue-600">
+                                Penyusunan Laporan Keuangan Dasar
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Canva (Desain & Editing)
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Microsoft Excel
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Microsoft Word & PowerPoint
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Soft Skills -->
+                    <div class="bg-white border border-softblue-100 shadow-sm rounded-3xl p-7">
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="w-9 h-9 rounded-xl bg-softblue-50 border border-softblue-200 text-softblue-600 flex items-center justify-center">
+                                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-lg text-slate-900">Soft Skills</h3>
+                        </div>
+                        <div class="flex flex-wrap gap-2.5">
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Komunikasi & Public Speaking
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-softblue-50 border border-softblue-200 text-xs font-semibold text-softblue-600">
+                                Hubungan Masyarakat (Humas)
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Master of Ceremony (MC)
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Kerja Sama Tim
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Manajemen Waktu
+                            </span>
+                            <span class="px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700">
+                                Adaptabilitas & Problem Solving
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. EDUCATION SECTION -->
+    <section id="education" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="max-w-2xl mb-14 reveal">
+                <span class="text-xs font-bold uppercase tracking-widest text-softblue-600">02 / Education</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 mt-2">Riwayat Pendidikan</h2>
+            </div>
+
+            <div class="relative border-l-2 border-softblue-200 ml-4 sm:ml-6 space-y-10">
+                <!-- Education 1 -->
+                <div class="relative pl-8 sm:pl-10 reveal">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-softblue-500 ring-4 ring-white"></span>
+                    <div class="bg-white border border-softblue-100 hover:border-softblue-300 shadow-sm transition-colors rounded-3xl p-6 sm:p-8">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-softblue-600 bg-softblue-50 border border-softblue-200 px-3 py-1 rounded-full w-fit">
+                                2026 – Sekarang
+                            </span>
+                            <span class="text-xs font-medium text-slate-500">Surabaya, Jawa Timur</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900">Universitas Negeri Surabaya</h3>
+                        <p class="text-sm font-semibold text-softblue-600 mt-1">S1 Akuntansi • Mahasiswa Aktif</p>
+                        <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+                            Mempelajari prinsip dasar akuntansi, penyusunan laporan keuangan, analisis bisnis, serta aktif berpartisipasi dalam kegiatan kemahasiswaan dan kepanitiaan kampus.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Education 2 -->
+                <div class="relative pl-8 sm:pl-10 reveal reveal-delay-1">
+                    <span class="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-white border-2 border-softblue-400 ring-4 ring-white"></span>
+                    <div class="bg-white border border-softblue-100 hover:border-softblue-300 shadow-sm transition-colors rounded-3xl p-6 sm:p-8">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                            <span class="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 bg-slate-100 px-3 py-1 rounded-full w-fit">
+                                2023 – 2026
+                            </span>
+                            <span class="text-xs font-medium text-slate-500">Fakfak, Papua Barat</span>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900">SMA Negeri 1 Fakfak</h3>
+                        <p class="text-sm font-semibold text-softblue-600 mt-1">Kurikulum Merdeka • Lulusan 2026</p>
+                        <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+                            Aktif dalam organisasi siswa sekolah sebagai Staf Hubungan Masyarakat serta dipercaya menjadi Master of Ceremony (MC) pada berbagai agenda resmi sekolah.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. PROJECT & EXPERIENCE SECTION -->
+    <section id="project" class="py-24 bg-softblue-50/60 border-y border-softblue-100">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14 reveal">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-softblue-600">03 / Experience & Projects</span>
+                    <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 mt-2">Pengalaman Organisasi & Karya</h2>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="flex items-center gap-2 bg-white p-1.5 rounded-2xl border border-softblue-200 shadow-xs w-fit">
+                    <button onclick="filterCards('all')" data-filter="all" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-softblue-500 text-white transition-all">
+                        Semua
+                    </button>
+                    <button onclick="filterCards('org')" data-filter="org" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-softblue-600 transition-all">
+                        Organisasi & MC
+                    </button>
+                    <button onclick="filterCards('creative')" data-filter="creative" class="filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-softblue-600 transition-all">
+                        Karya & Akuntansi
+                    </button>
+                </div>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid md:grid-cols-2 gap-6" id="project-grid">
+                <!-- Card 1: Divisi Humas & MC -->
+                <article data-category="org" class="project-card bg-white border border-softblue-100 hover:border-softblue-300 shadow-sm rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all hover:-translate-y-1 reveal">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-5">
+                            <span class="px-3.5 py-1 rounded-full bg-softblue-50 text-softblue-600 text-xs font-semibold border border-softblue-200">
+                                2024 – 2025
+                            </span>
+                            <i data-lucide="mic" class="w-5 h-5 text-softblue-500"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900">Divisi Humas & Master of Ceremony (MC)</h3>
+                        <p class="text-xs font-semibold text-softblue-600 mt-1 mb-5">Berbagai Kegiatan Kampus & Eksternal</p>
+
+                        <ul class="space-y-2.5 text-sm text-slate-600">
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Bertindak sebagai Master of Ceremony (MC) dalam acara sekolah dan luar sekolah.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Menyusun materi publikasi (poster, press release, undangan) dan mendistribusikannya ke 5+ media partner.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Berkoordinasi dengan 4+ divisi dalam memastikan alur acara, kebutuhan teknis, dan waktu pelaksanaan berjalan sesuai rencana.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Berkontribusi meningkatkan engagement kegiatan melalui strategi komunikasi yang efektif.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-softblue-100 flex flex-wrap gap-2">
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Public Speaking</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Media Partner</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Event Coordination</span>
+                    </div>
+                </article>
+
+                <!-- Card 2: Staf Hubungan Masyarakat -->
+                <article data-category="org" class="project-card bg-white border border-softblue-100 hover:border-softblue-300 shadow-sm rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all hover:-translate-y-1 reveal reveal-delay-1">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-5">
+                            <span class="px-3.5 py-1 rounded-full bg-softblue-50 text-softblue-600 text-xs font-semibold border border-softblue-200">
+                                2024 – 2025
+                            </span>
+                            <i data-lucide="users" class="w-5 h-5 text-softblue-500"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900">Staf Hubungan Masyarakat</h3>
+                        <p class="text-xs font-semibold text-softblue-600 mt-1 mb-5">Organisasi Siswa Sekolah</p>
+
+                        <ul class="space-y-2.5 text-sm text-slate-600">
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Menjadi penghubung komunikasi antara organisasi dengan sekolah, alumni, dan pihak eksternal.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Mengelola dokumentasi dan publikasi kegiatan melalui media sosial dan grup komunikasi.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="w-1.5 h-1.5 rounded-full bg-softblue-500 mt-2 shrink-0"></span>
+                                <span>Membantu proses perizinan dan korespondensi kegiatan hingga terlaksana dengan baik.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-softblue-100 flex flex-wrap gap-2">
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Public Relations</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Korespondensi</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Social Media</span>
+                    </div>
+                </article>
+
+                <!-- Card 3: Portfolio Desain Publikasi Canva -->
+                <article data-category="creative" class="project-card bg-white border border-softblue-100 hover:border-softblue-300 shadow-sm rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all hover:-translate-y-1 reveal">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-5">
+                            <span class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                                Creative Design Project
+                            </span>
+                            <i data-lucide="palette" class="w-5 h-5 text-softblue-500"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900">Desain Materi Publikasi & Branding Acara</h3>
+                        <p class="text-xs font-semibold text-softblue-600 mt-1 mb-4">Canva Visual Design</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Merancang berbagai aset visual seperti poster acara, pamflet media partner, feeds media sosial, dan template undangan resmi dengan tata letak estetis dan komunikatif menggunakan Canva.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-softblue-100 flex flex-wrap gap-2">
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Canva Pro</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Poster & Flyer</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Visual Communication</span>
+                    </div>
+                </article>
+
+                <!-- Card 4: Penyusunan Laporan Keuangan Dasar -->
+                <article data-category="creative" class="project-card bg-white border border-softblue-100 hover:border-softblue-300 shadow-sm rounded-3xl p-7 sm:p-8 flex flex-col justify-between transition-all hover:-translate-y-1 reveal reveal-delay-1">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-5">
+                            <span class="px-3.5 py-1 rounded-full bg-slate-100 text-slate-700 text-xs font-semibold">
+                                Accounting Project
+                            </span>
+                            <i data-lucide="file-spreadsheet" class="w-5 h-5 text-softblue-500"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900">Simulasi Siklus & Laporan Keuangan Dasar</h3>
+                        <p class="text-xs font-semibold text-softblue-600 mt-1 mb-4">Microsoft Excel & Akuntansi Dasar</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">
+                            Menyusun pencatatan jurnal umum, buku besar, neraca saldo, hingga laporan laba rugi sederhana secara terstruktur dan rapi menggunakan formula Microsoft Excel.
+                        </p>
+                    </div>
+
+                    <div class="pt-6 mt-6 border-t border-softblue-100 flex flex-wrap gap-2">
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Microsoft Excel</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Laporan Keuangan</span>
+                        <span class="text-[11px] px-3 py-1 rounded-lg bg-softblue-50 text-softblue-600 font-medium">Administrasi</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CONTACT SECTION -->
+    <section id="contact" class="py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-start">
+                <!-- Left Contact Info -->
+                <div class="lg:col-span-5 space-y-6 reveal">
+                    <div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-softblue-600">04 / Contact</span>
+                        <h2 class="font-display font-bold text-3xl sm:text-4xl text-slate-900 mt-2">Mari Terhubung & Berkolaborasi</h2>
+                        <p class="text-sm text-slate-600 mt-3 leading-relaxed">
+                            Tertarik untuk berdiskusi mengenai peluang magang akuntansi, posisi administrasi/humas, atau kolaborasi acara sebagai Master of Ceremony? Jangan ragu menghubungi saya.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Phone / WhatsApp -->
+                        <div class="p-4 rounded-2xl bg-softblue-50/60 border border-softblue-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3.5">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-softblue-200 text-softblue-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                    <i data-lucide="phone" class="w-4 h-4"></i>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] text-slate-500">Telepon / WhatsApp</p>
+                                    <p class="text-sm font-bold text-slate-900">085334776380</p>
+                                </div>
+                            </div>
+                            <button onclick="copyText('085334776380', 'Nomor telepon disalin!')" class="p-2 rounded-lg hover:bg-white text-slate-500 hover:text-softblue-600 transition-colors" title="Salin Nomor">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="p-4 rounded-2xl bg-softblue-50/60 border border-softblue-100 flex items-center justify-between gap-4">
+                            <div class="flex items-center gap-3.5 min-w-0">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-softblue-200 text-softblue-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                    <i data-lucide="mail" class="w-4 h-4"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[11px] text-slate-500">Email</p>
+                                    <p class="text-sm font-bold text-slate-900 truncate">hnawahyuni@gmail.com</p>
+                                </div>
+                            </div>
+                            <button onclick="copyText('hnawahyuni@gmail.com', 'Alamat email disalin!')" class="p-2 rounded-lg hover:bg-white text-slate-500 hover:text-softblue-600 transition-colors shrink-0" title="Salin Email">
+                                <i data-lucide="copy" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- LinkedIn -->
+                        <a href="https://linkedin.com/in/hannawhyuni" target="_blank" rel="noopener noreferrer" class="p-4 rounded-2xl bg-softblue-50/60 border border-softblue-100 hover:border-softblue-300 flex items-center justify-between gap-4 transition-colors group">
+                            <div class="flex items-center gap-3.5 min-w-0">
+                                <div class="w-10 h-10 rounded-xl bg-white border border-softblue-200 text-softblue-600 flex items-center justify-center shrink-0 shadow-2xs">
+                                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <p class="text-[11px] text-slate-500">LinkedIn</p>
+                                    <p class="text-sm font-bold text-slate-900 truncate group-hover:text-softblue-600 transition-colors">linkedin.com/in/hannawhyuni</p>
+                                </div>
+                            </div>
+                            <i data-lucide="external-link" class="w-4 h-4 text-slate-400 group-hover:text-softblue-600 shrink-0"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right Contact Form -->
+                <div class="lg:col-span-7 bg-white border border-softblue-200/80 shadow-lg shadow-softblue-500/5 rounded-3xl p-7 sm:p-9 reveal reveal-delay-1">
+                    <h3 class="font-display font-bold text-xl text-slate-900 mb-6">Kirim Pesan Langsung</h3>
+                    <form onsubmit="handleContactSubmit(event)" class="space-y-5">
+                        <div class="grid sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-2">Nama Lengkap</label>
+                                <input type="text" id="sender-name" required placeholder="Masukkan nama Anda" class="w-full px-4 py-3 rounded-xl bg-softblue-50/40 border border-softblue-200 focus:border-softblue-500 focus:bg-white focus:outline-none text-sm text-slate-900 placeholder:text-slate-400">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-2">Email / No. WhatsApp</label>
+                                <input type="text" id="sender-contact" required placeholder="email@perusahaan.com" class="w-full px-4 py-3 rounded-xl bg-softblue-50/40 border border-softblue-200 focus:border-softblue-500 focus:bg-white focus:outline-none text-sm text-slate-900 placeholder:text-slate-400">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-2">Subjek</label>
+                            <input type="text" id="sender-subject" required placeholder="Contoh: Penawaran Magang / Undangan MC" class="w-full px-4 py-3 rounded-xl bg-softblue-50/40 border border-softblue-200 focus:border-softblue-500 focus:bg-white focus:outline-none text-sm text-slate-900 placeholder:text-slate-400">
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-2">Pesan</label>
+                            <textarea id="sender-message" rows="4" required placeholder="Tuliskan detail pesan Anda di sini..." class="w-full px-4 py-3 rounded-xl bg-softblue-50/40 border border-softblue-200 focus:border-softblue-500 focus:bg-white focus:outline-none text-sm text-slate-900 placeholder:text-slate-400 resize-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-softblue-500 hover:bg-softblue-600 text-white font-semibold text-sm transition-all flex items-center justify-center gap-2 shadow-md shadow-softblue-500/20">
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                            <span>Kirim Pesan</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-softblue-100 py-8 bg-softblue-50/50">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+            <p>&copy; 2026 Hanna Wahyuni. All rights reserved.</p>
+            <p>Surabaya, Indonesia • S1 Akuntansi</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Navigation Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Scroll Reveal Animation using IntersectionObserver
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active Navigation Link Highlight on Scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 140;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-softblue-600', 'font-semibold');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('text-softblue-600', 'font-semibold');
+                }
+            });
+        });
+
+        // Project & Experience Filter
+        function filterCards(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.project-card');
+
+            buttons.forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-softblue-500 text-white transition-all';
+                } else {
+                    btn.className = 'filter-btn px-4 py-2 rounded-xl text-xs font-semibold text-slate-500 hover:text-softblue-600 transition-all';
+                }
+            });
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // Copy to Clipboard with Fallback
+        function copyText(text, message) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast(message);
+            } catch (err) {
+                showToast('Gagal menyalin teks.');
+            }
+            document.body.removeChild(textarea);
+        }
+
+        // Toast Notification Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = msg;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Contact Form Handler
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('sender-name').value.trim();
+            showToast(`Terima kasih ${name}, pesan Anda telah terkirim!`);
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
